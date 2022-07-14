@@ -20,6 +20,8 @@ export const ItemHandler = () => {
       setAuxRemove(true);
     }
 
+    cleanInputBox();
+
     if (aux === false) {
       setAux(true);
     } else if (aux === true) {
@@ -37,8 +39,6 @@ export const ItemHandler = () => {
 
     selected.childNodes.forEach((node) => arrayNodeList.push(node.textContent));
 
-    console.log(arrayNodeList);
-
     if (i === '' || arrayNodeList.includes(i)) return;
 
     const option = document.createElement('option');
@@ -54,11 +54,13 @@ export const ItemHandler = () => {
     const result = arrayFromNodeList.find((opt) => opt.innerHTML === i);
     const index = arrayFromNodeList.indexOf(result);
 
-    optionToDelete.remove(index)
+    optionToDelete.remove(index);
   }
 
   const cleanInputBox = () => {
     document.querySelector('input').value = '';
+
+    setItem('');
   }
 
   const selectOption = (e) => {
