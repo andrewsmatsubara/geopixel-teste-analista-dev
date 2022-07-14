@@ -16,6 +16,9 @@
 
 .clock-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
   height: 500px;
   border: 1px solid red;
 }
@@ -34,4 +37,6 @@
   display: flex;
   border: 1px solid red;
   width: 50%;
+  justify-content: center;
+  align-items: center;
 }
