@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import '../style/ItemHandler.css';
 
 export const ItemHandler = () => {
+  const defaultValue = 'Selecione uma opção';
+
   const [item, setItem] = useState('');
   const [select, setSelect] = useState('');
   const [aux, setAux] = useState(false);
   const [auxAdd, setAuxAdd] = useState(false);
   const [auxRemove, setAuxRemove] = useState(false);
+  const [bottomText, setBottomText] = useState(defaultValue);
 
-  const defaultValue = 'Selecione uma opção';
-
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     if (e.target.innerHTML === 'Adicionar') {
       setSelect(item);
       setAuxAdd(true);
@@ -60,6 +61,10 @@ export const ItemHandler = () => {
     document.querySelector('input').value = '';
   }
 
+  const selectOption = (e) => {
+    setBottomText(e.target.value);
+  }
+
   useEffect(() => {
     if (aux && auxAdd) {
       createElement(select);
@@ -78,7 +83,7 @@ export const ItemHandler = () => {
 
   return (
     <form className='item-handler-container' onSubmit={(e) => e.preventDefault()}>
-      <select defaultValue={defaultValue} className='select'>
+      <select defaultValue={defaultValue} className='select' onChange={(e) => selectOption(e)}>
         <option value={defaultValue} disabled>{defaultValue}</option>
         <option>Opção 1</option>
       </select>
@@ -88,7 +93,7 @@ export const ItemHandler = () => {
         <button onClick={(e) => handleClick(e)}>Remover</button>
         <button onClick={() => cleanInputBox()}>Limpar caixa</button>
       </div>
-      <p></p>
+      <p>{bottomText}</p>
     </form>
   )
 }
