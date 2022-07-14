@@ -7,10 +7,11 @@ export const ItemHandler = () => {
   const [item, setItem] = useState('');
   const [select, setSelect] = useState('');
   const [aux, setAux] = useState(false);
-  const [auxAdd, setAuxAdd] = useState(false);
-  const [auxRemove, setAuxRemove] = useState(false);
+  const [auxAdd, setAuxAdd] = useState(false); // Estado auxiliar específico para o botão 'Adicionar'
+  const [auxRemove, setAuxRemove] = useState(false); // Estado auxiliar específico para o botão 'Remover'
   const [bottomText, setBottomText] = useState(defaultValue);
 
+  // Função para lidar com o clique dos botôes 'Adicionar' e 'Remover'
   const handleClick = (e) => {
     if (e.target.innerHTML === 'Adicionar') {
       setSelect(item);
@@ -29,10 +30,12 @@ export const ItemHandler = () => {
     }
   }
 
+  // Função para lidar com as mudanças no input
   const handleChange = (e) => {
     setItem(e.target.value);
   }
 
+  // Função para criar <option>
   const createElement = (i) => {
     const selected = document.querySelector('.select');
     const arrayNodeList = [];
@@ -58,6 +61,7 @@ export const ItemHandler = () => {
     window.alert('Item adicionado com sucesso!');
   }
 
+  // Função para remover uma <option>
   const removeElement = (i) => {
     const optionToDelete = document.querySelector('select');
     const arrayFromNodeList = Array.from(optionToDelete);
@@ -72,6 +76,7 @@ export const ItemHandler = () => {
     }
   }
 
+  // Função para limpar o campo de input
   const cleanInputBox = () => {
     document.querySelector('input').value = '';
 
@@ -82,6 +87,7 @@ export const ItemHandler = () => {
     setBottomText(e.target.value);
   }
 
+  // useEffect para 'ouvir' os estados auxiliares para renderização da adição ou subtração de <options>
   useEffect(() => {
     if (aux && auxAdd) {
       createElement(select);
