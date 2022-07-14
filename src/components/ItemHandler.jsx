@@ -7,7 +7,6 @@ export const ItemHandler = () => {
   const [aux, setAux] = useState(false);
   const [auxAdd, setAuxAdd] = useState(false);
   const [auxRemove, setAuxRemove] = useState(false);
-  const [auxClean, setAuxClean] = useState(false);
 
   const defaultValue = 'Selecione uma opção';
 
@@ -18,9 +17,6 @@ export const ItemHandler = () => {
     } else if (e.target.innerHTML === 'Remover') {
       setSelect(item);
       setAuxRemove(true);
-    } else if (e.target.innerHTML === 'Limpar caixa') {
-      setSelect(item);
-      setAuxClean(true);
     }
 
     if (aux === false) {
@@ -53,16 +49,15 @@ export const ItemHandler = () => {
 
   const removeElement = (i) => {
     const optionToDelete = document.querySelector('select');
-
-    console.log(optionToDelete);
-
     const arrayFromNodeList = Array.from(optionToDelete);
-
     const result = arrayFromNodeList.find((opt) => opt.innerHTML === i);
-
     const index = arrayFromNodeList.indexOf(result);
 
     optionToDelete.remove(index)
+  }
+
+  const cleanInputBox = () => {
+    document.querySelector('input').value = '';
   }
 
   useEffect(() => {
@@ -81,12 +76,6 @@ export const ItemHandler = () => {
     }
   }, [aux, auxRemove]);
 
-  useEffect(() => {
-    if (aux && auxClean) {
-
-    }
-  });
-
   return (
     <form className='item-handler-container' onSubmit={(e) => e.preventDefault()}>
       <select defaultValue={defaultValue} className='select'>
@@ -97,7 +86,7 @@ export const ItemHandler = () => {
       <div className='button-container'>
         <button onClick={(e) => handleClick(e)}>Adicionar</button>
         <button onClick={(e) => handleClick(e)}>Remover</button>
-        <button onClick={(e) => handleClick(e)}>Limpar caixa</button>
+        <button onClick={() => cleanInputBox()}>Limpar caixa</button>
       </div>
       <p></p>
     </form>
