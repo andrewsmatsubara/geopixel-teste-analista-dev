@@ -36,6 +36,14 @@ export const ItemHandler = () => {
 
   const createElement = (i) => {
     const selected = document.querySelector('.select');
+    const arrayNodeList = [];
+
+    selected.childNodes.forEach((node) => arrayNodeList.push(node.textContent));
+
+    console.log(arrayNodeList);
+
+    if (i === '' || arrayNodeList.includes(i)) return;
+
     const option = document.createElement('option');
 
     option.innerHTML = i;
@@ -62,10 +70,7 @@ export const ItemHandler = () => {
       createElement(select);
       setAux(false);
       setAuxAdd(false);
-    } else if (aux && auxClean) {
-
     }
-
   }, [aux, auxAdd]);
 
   useEffect(() => {
@@ -75,6 +80,12 @@ export const ItemHandler = () => {
       setAuxRemove(false);
     }
   }, [aux, auxRemove]);
+
+  useEffect(() => {
+    if (aux && auxClean) {
+
+    }
+  });
 
   return (
     <form className='item-handler-container' onSubmit={(e) => e.preventDefault()}>
