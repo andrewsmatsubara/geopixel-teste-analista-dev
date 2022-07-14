@@ -5,11 +5,23 @@ export const ItemHandler = () => {
   const [item, setItem] = useState('');
   const [select, setSelect] = useState('');
   const [aux, setAux] = useState(false);
+  const [auxAdd, setAuxAdd] = useState(false);
+  const [auxRemove, setAuxRemove] = useState(false);
+  const [auxClean, setAuxClean] = useState(false);
 
   const defaultValue = 'Selecione uma opção';
 
-  const handleClick = async () => {
-    setSelect(item);
+  const handleClick = async (e) => {
+    if (e.target.innerHTML === 'Adicionar') {
+      setSelect(item);
+      setAuxAdd(true);
+    } else if (e.target.innerHTML === 'Remover') {
+      setSelect(item);
+      setAuxRemove(true);
+    } else if (e.target.innerHTML === 'Limpar caixa') {
+      setSelect(item);
+      setAuxClean(true);
+    }
 
     if (aux === false) {
       setAux(true);
@@ -31,12 +43,38 @@ export const ItemHandler = () => {
     selected.appendChild(option);
   }
 
+  const removeElement = (i) => {
+    const optionToDelete = document.querySelector('select');
+
+    console.log(optionToDelete);
+
+    const arrayFromNodeList = Array.from(optionToDelete);
+
+    const result = arrayFromNodeList.find((opt) => opt.innerHTML === i);
+
+    const index = arrayFromNodeList.indexOf(result);
+
+    optionToDelete.remove(index)
+  }
+
   useEffect(() => {
-    if (aux) {
+    if (aux && auxAdd) {
       createElement(select);
       setAux(false);
+      setAuxAdd(false);
+    } else if (aux && auxClean) {
+
     }
-  }, [aux]);
+
+  }, [aux, auxAdd]);
+
+  useEffect(() => {
+    if (aux && auxRemove) {
+      removeElement(select);
+      setAux(false);
+      setAuxRemove(false);
+    }
+  }, [aux, auxRemove]);
 
   return (
     <form className='item-handler-container' onSubmit={(e) => e.preventDefault()}>
@@ -46,9 +84,9 @@ export const ItemHandler = () => {
       </select>
       <input placeholder='Insira um item' value={item} onChange={(e) => handleChange(e)} />
       <div className='button-container'>
-        <button onClick={() => handleClick()}>Adicionar</button>
-        <button>Remover</button>
-        <button>Limpar caixa</button>
+        <button onClick={(e) => handleClick(e)}>Adicionar</button>
+        <button onClick={(e) => handleClick(e)}>Remover</button>
+        <button onClick={(e) => handleClick(e)}>Limpar caixa</button>
       </div>
       <p></p>
     </form>
