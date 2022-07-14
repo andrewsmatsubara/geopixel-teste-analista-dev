@@ -39,13 +39,23 @@ export const ItemHandler = () => {
 
     selected.childNodes.forEach((node) => arrayNodeList.push(node.textContent));
 
-    if (i === '' || arrayNodeList.includes(i)) return;
+    if (i === '') {
+      window.alert('Adicione um item!');
+
+      return;
+    } else if (arrayNodeList.includes(i)) {
+      window.alert('Não adicione um item repetido!');
+
+      return;
+    }
 
     const option = document.createElement('option');
 
     option.innerHTML = i;
 
     selected.appendChild(option);
+
+    window.alert('Item adicionado com sucesso!');
   }
 
   const removeElement = (i) => {
@@ -55,6 +65,8 @@ export const ItemHandler = () => {
     const index = arrayFromNodeList.indexOf(result);
 
     optionToDelete.remove(index);
+
+    window.alert('Item removido com sucesso!');
   }
 
   const cleanInputBox = () => {
