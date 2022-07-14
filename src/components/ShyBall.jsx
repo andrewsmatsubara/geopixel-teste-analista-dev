@@ -13,8 +13,8 @@ export const ShyBall = () => {
   }
 
   const randomizeNumbers = async (maxH, maxV) => {
-    const horizontal = Math.round(Math.random() * maxH) * (Math.round(Math.random()) ? 1 : -1);
-    const vertical = Math.round(Math.random() * maxV) * (Math.round(Math.random()) ? 1 : -1);;
+    const horizontal = Math.round(Math.random() * maxH - 50) * (Math.round(Math.random()) ? 1 : -1) / 2;
+    const vertical = Math.round(Math.random() * maxV - 50) * (Math.round(Math.random()) ? 1 : -1) / 2;
 
     return { x: horizontal, y: vertical }
   }
