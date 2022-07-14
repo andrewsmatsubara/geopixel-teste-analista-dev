@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import '../style/ShyBall.css';
 
 export const ShyBall = () => {
-  const [coordinates, setCoordinates] = useState({});
-
   const fleeRandomly = async () => {
     const div = document.querySelector('.shy-ball-container');
     const circle = document.querySelector('.circle');
@@ -11,10 +8,8 @@ export const ShyBall = () => {
     const height = window.getComputedStyle(div).height.slice(0, -2);
     const randomNumbers = await randomizeNumbers(width, height);
 
-    setCoordinates(randomNumbers);
-
-    circle.style.left = coordinates.x;
-    circle.style.top = coordinates.y;
+    circle.style.transition = '1s ease';
+    circle.style.transform = `translate(${randomNumbers.x}px, ${randomNumbers.y}px)`;
   }
 
   const randomizeNumbers = async (maxH, maxV) => {
