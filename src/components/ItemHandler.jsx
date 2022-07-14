@@ -62,11 +62,14 @@ export const ItemHandler = () => {
     const optionToDelete = document.querySelector('select');
     const arrayFromNodeList = Array.from(optionToDelete);
     const result = arrayFromNodeList.find((opt) => opt.innerHTML === i);
-    const index = arrayFromNodeList.indexOf(result);
 
-    optionToDelete.remove(index);
+    if (result) {
+      const index = arrayFromNodeList.indexOf(result);
 
-    window.alert('Item removido com sucesso!');
+      optionToDelete.remove(index);
+
+      if (i !== '' && index) window.alert('Item removido com sucesso!');
+    }
   }
 
   const cleanInputBox = () => {
